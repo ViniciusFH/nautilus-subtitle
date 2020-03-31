@@ -1,6 +1,6 @@
 import zlib, requests, re
 
-def downloadAndSaveFile(link, folderPath, fileName):
+def downloadAndSaveFile(link, folderPath, subName):
 
 	print('Downloading file...')
 
@@ -8,11 +8,7 @@ def downloadAndSaveFile(link, folderPath, fileName):
 
 	gzData = zlib.decompress(r.content, zlib.MAX_WBITS|32)
 
-	print('Removing file extension from file...')
-
-	subName = re.sub(r'\.[\w]+$', '.srt', fileName)
-
-	print('Sub name now is', subName)
+	print('Sub name is', subName)
 
 	print('Saving it to', folderPath)
 

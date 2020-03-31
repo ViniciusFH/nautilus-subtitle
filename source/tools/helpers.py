@@ -46,7 +46,6 @@ def hashFile(path):
 
 		return error("IOError")
 
-
 def guessMovieName(fileName):
 
 	fileNamePieces = re.split('[\,\.\(\)\'\-\[\] ]', fileName)
@@ -67,6 +66,16 @@ def guessMovieName(fileName):
 
 
 	if not probableMovieName:
-		return error('Could not guess movie name.')
+		return False
 
-	return success('name', probableMovieName)
+	return probableMovieName
+	
+
+def guessMovieYear(fileName):
+
+	tryToGuess = re.findall(r'((?:19|2[012])\d{2})', fileName)
+
+	if len(tryToGuess):
+		return tryToGuess[0]
+
+	return 

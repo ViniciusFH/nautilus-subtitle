@@ -2,14 +2,19 @@
 # -*- coding: utf-8 -*-
 
 import os, sys
+import re
 
 from xmlrpc.client import ServerProxy
 
-from query import queryByHashAndSize, queryByMovieName
+home = os.path.expanduser('~')
+
+sys.path.insert(1, home + '/.nautilus-subtitle')
+
+from query import queryByHashAndSize, queryByFileName
 from download import downloadAndSaveFile
 
 
-languageID = 'eng'
+languageID = 'pob'
 
 filePath = os.environ['NAUTILUS_SCRIPT_SELECTED_FILE_PATHS'].splitlines()[0]
 print('File path:', filePath)
@@ -49,11 +54,19 @@ else:
 
 	print('Query by hash and size failed.')
 
-	tryByFileName = queryByMovieName(fileName, languageID, server, loginToken)
+	tryByFileName = queryByFileName(fileName, languageID, server, loginToken)
 
 	if tryByFileName['success']:
+
+		downloadLinks = tryByFileName['links']
+
+		for i in range(len(downloadLinks)):
+
+			subName = re.sub(r'\.[\w]+$', '', fileName)
+
+			subName += '(' + str(i) + ').srt'
 		
-		downloadAndSaveFile(tryByFileName['downloadLink'], folderPath, fileName)
+			downloadAndSaveFile(downloadLinks[i], folderPath, subName)
 
 		sys.exit()
 
