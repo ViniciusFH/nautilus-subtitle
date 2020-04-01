@@ -46,7 +46,9 @@ tryHashAndSize = queryByHashAndSize(filePath, languageID, server, loginToken)
 
 if tryHashAndSize['success']:
 
-	downloadAndSaveFile(tryHashAndSize['downloadLink'], folderPath, fileName)
+	subName = re.sub(r'\.[\w]+$', '.srt', fileName)
+
+	downloadAndSaveFile(tryHashAndSize['downloadLink'], folderPath, subName)
 
 	sys.exit()
 
