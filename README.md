@@ -38,3 +38,6 @@ cp ~/.local/share/nautilus/scripts/Find\ Subtitles/English.py ~/.local/share/nau
 ```
 sed -i 's/eng/{{language ID}}/g' ~/.local/share/nautilus/scripts/Find\ Subtitles/{{language name}}.py
 ```
+
+## How it works
+The script basically attempts to find subtitles with two different methods. The first and preferred one is a query to the OpenSubtitles API using the movie file hash, as recommended and exemplified by the admin. The subtitle found is downloaded. But, if this query returns nothing, the script tries to machine replicate my human method of searching subtitles. First, it tries to guess the movie name and year, and get the movie ID in open subtitles. If it works, the script iterates through all subtitles for that movie ID in the specified language, and compare your file name with the ones that each subtitle is supposed to match. The comparison has a score fetched with the SequenceMatcher function from Python's difflib. If one of them has over than 90% match with the file name, the script downloads it. Otherwise, the three best matches are downloaded.
