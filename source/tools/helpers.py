@@ -58,7 +58,7 @@ def guessMovieName(fileName):
 
 			probableMovieName += i
 
-		else:
+		elif probableMovieName != '':
 
 			break
 
