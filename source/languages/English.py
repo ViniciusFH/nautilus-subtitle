@@ -30,7 +30,7 @@ print('Retrieving loginToken...')
 
 server = ServerProxy('https://api.opensubtitles.org/xml-rpc')
 
-session = server.LogIn('', '', languageID, 'opensubtitles-download 4.1')
+session = server.LogIn('Lodono', 'bocegajen', languageID, 'TemporaryUserAgent')
 
 if session['status'] != '200 OK':
 	print('Login failed. Exiting...')
